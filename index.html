@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>記事一覧 | 私のポートフォリオ</title>
+    <title>KASAJA.jp | タバコ代計算機と制作アーカイブ</title>
     <link rel="stylesheet" href="style.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1519450328099864"
-crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1519450328099864" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -35,11 +34,47 @@ crossorigin="anonymous"></script>
         </aside>
 
         <main class="main-content">
-            <h2>「アート・絵画」の記事一覧</h2>
-            <p class="count">3件の記事が見つかりました</p>
+            
+            <section class="calculator-section">
+                <h2>🚬 タバコ代、もったいなかった計算機</h2>
+                <p class="calc-sub">吸った分のお金で何が買えたかを計算します</p>
+
+                <div class="calc-form">
+                    <div class="input-group">
+                        <label for="years">吸っていた年数 (年)</label>
+                        <input type="number" id="years" placeholder="例: 5" min="0">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="cigarettes">1日の量 (本)</label>
+                        <input type="number" id="cigarettes" placeholder="例: 20" min="0">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="price">タバコの値段 (1箱/20本あたり)</label>
+                        <select id="price">
+                            <option value="580">580円（メビウス・セブンスター等）</option>
+                            <option value="600">600円（マールボロ等）</option>
+                            <option value="620">620円（アメリカンスピリット等）</option>
+                            <option value="700">700円（プレミアム系）</option>
+                        </select>
+                    </div>
+
+                    <button onclick="calculateCost()">💸 計算する</button>
+                </div>
+
+                <div id="resultBox" class="result-box">
+                    <div class="total-price">合計金額: <span id="totalCost">0</span>円</div>
+                    <p id="alternativeItem"></p>
+                </div>
+            </section>
+
+            <hr class="section-divider">
+
+            <h2>最新のトピックス</h2>
+            <p class="count">3件の記事があります</p>
 
             <div class="card-grid">
-
                 <article class="card">
                     <div class="card-img-wrapper">
                         <img src="https://via.placeholder.com/300x180/ddd/999?text=Image+1" alt="作品1">
@@ -75,11 +110,45 @@ crossorigin="anonymous"></script>
                         <span class="tag">アート・絵画</span>
                     </div>
                 </article>
-
             </div>
         </main>
 
     </div>
 
+    <script>
+        function calculateCost() {
+            const years = parseFloat(document.getElementById('years').value);
+            const cigarettes = parseFloat(document.getElementById('cigarettes').value);
+            const pricePerPack = parseFloat(document.getElementById('price').value);
+
+            if (isNaN(years) || isNaN(cigarettes)) {
+                alert('年数と本数を入力してください！');
+                return;
+            }
+
+            const totalDays = years * 365;
+            const totalPacks = (cigarettes / 20) * totalDays;
+            const totalCost = Math.round(totalPacks * pricePerPack);
+
+            let item = "";
+            if (totalCost < 10000) {
+                item = "ちょっと豪華な居酒屋で贅沢ができましたね。";
+            } else if (totalCost < 50000) {
+                item = "最新のワイヤレスイヤホンや、高級ブランドの服が買えました。";
+            } else if (totalCost < 200000) {
+                item = "最新のiPhoneや、国内の贅沢な温泉旅行に行けました。";
+            } else if (totalCost < 500000) {
+                item = "ハワイやヨーロッパへの海外旅行にいけました。";
+            } else if (totalCost < 2000000) {
+                item = "スペックの良い中古車、あるいは新車の軽自動車が余裕で買えました！";
+            } else {
+                item = "高級外車（ベンツやBMW）や、家を建てるための頭金になりました！";
+            }
+
+            document.getElementById('totalCost').innerText = totalCost.toLocaleString();
+            document.getElementById('alternativeItem').innerText = `👉 このお金があれば…\n${item}`;
+            document.getElementById('resultBox').style.display = 'block';
+        }
+    </script>
 </body>
 </html>

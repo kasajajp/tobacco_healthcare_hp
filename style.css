@@ -1,177 +1,80 @@
-/* 全体のリセットと共通設定 */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #f8fafc;
-    color: #334155;
-    line-height: 1.6;
-}
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* ヘッダーのデザイン */
-header {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 15px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-.header-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.logo {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #1e293b;
-}
-nav a {
-    margin-left: 20px;
-    font-size: 0.95rem;
-    color: #64748b;
-    font-weight: 500;
-}
-nav a:hover {
-    color: #0f172a;
-}
-
-/* 左右分割（2カラム）のレイアウト構造 */
-.wrapper {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 0 20px;
-    display: flex;
-    gap: 40px; /* 左と右のすき間 */
-}
-
-/* 左側サイドバー（メニュー） */
-.sidebar {
-    width: 240px;
-    flex-shrink: 0;
-}
-.sidebar h3 {
-    font-size: 1.1rem;
-    color: #1e293b;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #e2e8f0;
-}
-.sidebar ul {
-    list-style: none;
-}
-.sidebar li {
-    margin-bottom: 8px;
-}
-.sidebar a {
-    display: block;
-    padding: 8px 12px;
-    border-radius: 6px;
-    color: #475569;
-    font-size: 0.95rem;
-}
-.sidebar a:hover, .sidebar a.active {
-    background-color: #e2e8f0;
-    color: #0f172a;
-    font-weight: bold;
-}
-
-/* 右側メインコンテンツ */
-.main-content {
-    flex-grow: 1;
-}
-.main-content h2 {
-    font-size: 1.5rem;
-    color: #1e293b;
-    margin-bottom: 5px;
-}
-.count {
-    font-size: 0.9rem;
-    color: #94a3b8;
-    margin-bottom: 25px;
-}
-
-/* 記事カードを並べるグリッド（2列に並べる） */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 通常時は2列 */
-    gap: 25px;
-}
-
-/* 記事カード単体のデザイン */
-.card {
+/* --- 計算機エリアの追加デザイン --- */
+.calculator-section {
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    cursor: pointer;
-}
-.card-img-wrapper img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover; /* 画像の比率を保ったまま枠に収める */
-    display: block;
-}
-.card-content {
-    padding: 20px;
-}
-.date {
-    display: block;
-    font-size: 0.8rem;
-    color: #94a3b8;
-    margin-bottom: 8px;
-}
-.card-title {
-    font-size: 1.1rem;
-    color: #1e293b;
-    margin-bottom: 10px;
-    line-height: 1.4;
-}
-.card-text {
+.calc-sub {
     font-size: 0.9rem;
     color: #64748b;
-    margin-bottom: 15px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* 3行目以降を「...」で省略する */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    margin-bottom: 20px;
 }
-.tag {
-    display: inline-block;
-    background-color: #f1f5f9;
+.calc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+}
+.calc-form label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 6px;
     color: #475569;
-    font-size: 0.75rem;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: 500;
+}
+.calc-form input, .calc-form select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #1e293b;
+    background-color: #f8fafc;
+}
+.calc-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+.calc-form button:hover {
+    background-color: #059669;
+}
+.section-divider {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 40px 0;
 }
 
-/* 📱 スマートフォン用の設定（横幅が狭くなった時） */
-@media (max-width: 768px) {
-    .wrapper {
-        flex-direction: column; /* 左右並びから上下並びに変更 */
-        margin: 20px auto;
-        gap: 25px;
-    }
-    .sidebar {
-        width: 100%; /* メニューを横いっぱいに広げる */
-    }
-    .card-grid {
-        grid-template-columns: 1fr; /* カードを1列にする */
-    }
+/* 計算結果のボックス */
+.result-box {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #ecfdf5;
+    border-radius: 8px;
+    border-left: 5px solid #10b981;
+    display: none;
+    max-width: 400px;
+}
+.total-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ef4444;
+    margin-bottom: 8px;
+}
+#alternativeItem {
+    font-weight: bold;
+    color: #334155;
+    font-size: 0.95rem;
+    white-space: pre-line;
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>エニタイム葛西店</title>
+  <title>ジムコスト診断</title>
 
   <style>
     body {
@@ -27,23 +27,41 @@
     h1 {
       margin-top: 0;
       font-size: 22px;
+      text-align: center;
     }
 
-    .label {
-      color: #aaa;
-      font-size: 14px;
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
       margin-top: 16px;
-    }
-
-    .value {
-      font-size: 18px;
-      margin-top: 4px;
-    }
-
-    .price {
-      font-size: 28px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: black;
       font-weight: bold;
-      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .sub {
+      margin-top: 10px;
+      text-align: center;
+      color: #aaa;
     }
   </style>
 </head>
@@ -51,17 +69,47 @@
 <body>
 
   <div class="card">
-    <h1>エニタイムフィットネス葛西店</h1>
+    <h1>ジムコスト診断</h1>
 
-    <div class="label">月額料金</div>
-    <div class="price">¥8,200（税込）</div>
+    <input id="fee" type="number" placeholder="月額料金（例: 8000）">
+    <input id="visits" type="number" placeholder="月のジム回数（例: 4）">
 
-    <div class="label">住所</div>
-    <div class="value">
-      〒134-0084<br>
-      東京都江戸川区東葛西6-2-1 3F
-    </div>
+    <button onclick="calc()">診断する</button>
+
+    <div class="result" id="result"></div>
+    <div class="sub" id="comment"></div>
   </div>
+
+  <script>
+    function calc() {
+      const fee = Number(document.getElementById("fee").value);
+      const visits = Number(document.getElementById("visits").value);
+
+      if (!fee || !visits) {
+        alert("数値を入力してください");
+        return;
+      }
+
+      const per = fee / visits;
+
+      document.getElementById("result").innerText =
+        `1回あたり ${Math.round(per).toLocaleString()} 円`;
+
+      let comment = "";
+
+      if (per >= 8000) {
+        comment = "パーソナル級（かなり贅沢なジム利用）";
+      } else if (per >= 2000) {
+        comment = "ダンベル級（ちゃんと通えている）";
+      } else if (per >= 500) {
+        comment = "牛丼級（コスパ優秀トレーニー）";
+      } else {
+        comment = "異常コスパ（ほぼ無限回収モード）";
+      }
+
+      document.getElementById("comment").innerText = comment;
+    }
+  </script>
 
 </body>
 </html>

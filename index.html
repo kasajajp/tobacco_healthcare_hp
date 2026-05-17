@@ -3,72 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ジムコスト診断 + X投稿</title>
+  <title>ジムコスト診断</title>
 
   <style>
     body {
       font-family: sans-serif;
-      background: #111;
+      background: #0f0f0f;
       color: #fff;
       display: flex;
       justify-content: center;
-      padding: 40px 20px;
+      padding: 40px 16px;
     }
 
     .card {
-      background: #1e1e1e;
-      padding: 24px;
-      border-radius: 16px;
+      background: #1c1c1c;
+      padding: 26px;
+      border-radius: 18px;
       width: 100%;
       max-width: 420px;
     }
 
     h1 {
       text-align: center;
-      font-size: 20px;
+      font-size: 22px;
+      margin-bottom: 18px;
     }
 
     input {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       margin-top: 12px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
       font-size: 16px;
     }
 
     button {
       width: 100%;
-      margin-top: 12px;
-      padding: 12px;
+      margin-top: 14px;
+      padding: 16px;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       font-weight: bold;
       cursor: pointer;
+      font-size: 16px;
     }
 
-    .calc-btn {
-      background: white;
-      color: black;
+    .calc {
+      background: #fff;
+      color: #000;
     }
 
-    .x-btn {
+    .xpost {
       background: #000;
-      color: white;
-      border: 1px solid #444;
+      color: #fff;
+      border: 2px solid #444;
+      font-size: 18px;
+      padding: 18px;
     }
 
     .result {
-      margin-top: 20px;
-      font-size: 18px;
-      text-align: center;
+      margin-top: 22px;
+      font-size: 20px;
       font-weight: bold;
+      text-align: center;
     }
 
     .comment {
       margin-top: 10px;
       text-align: center;
       color: #aaa;
+      font-size: 14px;
+    }
+
+    .badge {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #888;
     }
   </style>
 </head>
@@ -79,18 +91,20 @@
   <h1>ジムコスト診断</h1>
 
   <input id="fee" type="number" placeholder="月額料金（例：8000）">
-  <input id="visits" type="number" placeholder="月の回数（例：4）">
+  <input id="visits" type="number" placeholder="月のジム回数（例：4）">
 
-  <button class="calc-btn" onclick="calc()">計算する</button>
+  <button class="calc" onclick="calc()">診断する</button>
 
   <div class="result" id="result"></div>
   <div class="comment" id="comment"></div>
+  <div class="badge" id="badge"></div>
 
-  <button class="x-btn" onclick="postToX()">Xで投稿する</button>
+  <button class="xpost" onclick="postToX()">Xでバズ投稿する 🚀</button>
 </div>
 
 <script>
 let lastText = "";
+let lastLevel = "";
 
 function calc() {
   const fee = Number(document.getElementById("fee").value);
@@ -101,32 +115,59 @@ function calc() {
   const per = fee / visits;
 
   let label = "";
+  let badge = "";
 
-  if (per >= 8000) {
+  // バリエーション拡張
+  if (per >= 10000) {
+    label = "富豪パーソナル級";
+    badge = "完全にパーソナルジム超え";
+  } else if (per >= 8000) {
     label = "パーソナル級";
+    badge = "かなり贅沢なジム利用";
+  } else if (per >= 4000) {
+    label = "高級会員級";
+    badge = "意識高いトレーニー";
   } else if (per >= 2000) {
     label = "ダンベル級";
+    badge = "標準的トレーニー";
+  } else if (per >= 1000) {
+    label = "公園トレ級";
+    badge = "コスパ良好";
   } else if (per >= 500) {
     label = "牛丼級";
+    badge = "かなりコスパ優秀";
   } else {
-    label = "異常コスパ";
+    label = "異常コスパ級";
+    badge = "ほぼ無限回収モード";
   }
 
-  lastText = `ジム1回あたり${Math.round(per)}円 → ${label}`;
+  lastText = `ジム1回 ${Math.round(per)}円 → ${label}`;
 
   document.getElementById("result").innerText = lastText;
-  document.getElementById("comment").innerText = "この結果をXに投稿できます";
+  document.getElementById("comment").innerText = "X投稿で共有できます";
+  document.getElementById("badge").innerText = badge;
+
+  lastLevel = label;
 }
 
 function postToX() {
   if (!lastText) {
-    alert("先に計算してください");
+    alert("先に診断してください");
     return;
   }
 
-  const text = encodeURIComponent(lastText + " #ジムコスト診断");
+  const hashtags = [
+    "#ジムコスト診断",
+    "#筋トレ",
+    "#フィットネス",
+    "#ジム通い"
+  ].join(" ");
 
-  const url = `https://twitter.com/intent/tweet?text=${text}`;
+  const text =
+    `${lastText}\n\n${hashtags}\n自分のコスパを診断👇`;
+
+  const url =
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
 
   window.open(url, "_blank");
 }

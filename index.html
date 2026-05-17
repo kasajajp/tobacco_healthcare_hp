@@ -69,7 +69,7 @@
       text-align: center;
     }
 
-    .comment, .counter {
+    .comment {
       margin-top: 10px;
       text-align: center;
       color: #aaa;
@@ -89,6 +89,14 @@
       text-decoration: none;
       font-weight: bold;
     }
+
+    .gymmap-title {
+      margin-top: 18px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      color: #aaa;
+    }
   </style>
 </head>
 
@@ -97,8 +105,6 @@
 <div class="card">
 
   <h1>ジムコスト診断</h1>
-
-  <div class="counter" id="counter"></div>
 
   <input id="fee" type="number" placeholder="月額料金（例：8000）">
   <input id="visits" type="number" placeholder="月のジム回数（例：4）">
@@ -110,10 +116,10 @@
 
   <button class="xpost" onclick="postToX()">Xでバズ投稿する 🚀</button>
 
-  <!-- X投稿表示枠 -->
   <div class="box" id="xbox"></div>
 
-  <!-- 修正：URL埋め込み -->
+  <div class="gymmap-title">🏋️GymMap</div>
+
   <div class="box">
     <a href="https://kasajajp.github.io/kasaja_gymmap" target="_blank">
       あなたのジム料金は？
@@ -140,7 +146,6 @@ function calc() {
   const per = fee / visits;
 
   let label = "";
-  let badge = "";
 
   if (per >= 10000) label = "富豪パーソナル級";
   else if (per >= 8000) label = "パーソナル級";
@@ -154,14 +159,6 @@ function calc() {
 
   document.getElementById("result").innerText = lastText;
   document.getElementById("comment").innerText = "X投稿で共有可能";
-
-  // カウンター（ローカル）
-  let count = localStorage.getItem("gym_count");
-  count = count ? Number(count) + 1 : 1;
-  localStorage.setItem("gym_count", count);
-
-  document.getElementById("counter").innerText =
-    `あなたは ${count} 人目の診断者です`;
 }
 
 function postToX() {

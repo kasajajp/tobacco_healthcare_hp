@@ -1,154 +1,67 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KASAJA.jp | タバコ代計算機と制作アーカイブ</title>
-    <link rel="stylesheet" href="style.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1519450328099864" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>エニタイム葛西店</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card {
+      background: #1e1e1e;
+      padding: 24px;
+      border-radius: 16px;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    .label {
+      color: #aaa;
+      font-size: 14px;
+      margin-top: 16px;
+    }
+
+    .value {
+      font-size: 18px;
+      margin-top: 4px;
+    }
+
+    .price {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+  </style>
 </head>
+
 <body>
 
-    <header>
-        <div class="header-container">
-            <div class="logo">KASAJA.jp</div>
-            <nav>
-                <a href="#">ホーム</a>
-                <a href="#">記事一覧</a>
-                <a href="#">お問い合わせ</a>
-            </nav>
-        </div>
-    </header>
+  <div class="card">
+    <h1>エニタイムフィットネス葛西店</h1>
 
-    <div class="wrapper">
-        
-        <aside class="sidebar">
-            <h3>カテゴリ</h3>
-            <ul>
-                <li><a href="#" class="active">すべて</a></li>
-                <li><a href="#">アート・絵画</a></li>
-                <li><a href="#">イラスト・制作</a></li>
-                <li><a href="#">日常・メモ</a></li>
-                <li><a href="#">お知らせ</a></li>
-            </ul>
-        </aside>
+    <div class="label">月額料金</div>
+    <div class="price">¥8,200（税込）</div>
 
-        <main class="main-content">
-            
-            <section class="calculator-section">
-                <h2>🚬 タバコ代、もったいなかった計算機</h2>
-                <p class="calc-sub">吸った分のお金で何が買えたかを計算します</p>
-
-                <div class="calc-form">
-                    <div class="input-group">
-                        <label for="years">吸っていた年数 (年)</label>
-                        <input type="number" id="years" placeholder="例: 5" min="0">
-                    </div>
-
-                    <div class="input-group">
-                        <label for="cigarettes">1日の量 (本)</label>
-                        <input type="number" id="cigarettes" placeholder="例: 20" min="0">
-                    </div>
-
-                    <div class="input-group">
-                        <label for="price">タバコの値段 (1箱/20本あたり)</label>
-                        <select id="price">
-                            <option value="580">580円（メビウス・セブンスター等）</option>
-                            <option value="600">600円（マールボロ等）</option>
-                            <option value="620">620円（アメリカンスピリット等）</option>
-                            <option value="700">700円（プレミアム系）</option>
-                        </select>
-                    </div>
-
-                    <button onclick="calculateCost()">💸 計算する</button>
-                </div>
-
-                <div id="resultBox" class="result-box">
-                    <div class="total-price">合計金額: <span id="totalCost">0</span>円</div>
-                    <p id="alternativeItem"></p>
-                </div>
-            </section>
-
-            <hr class="section-divider">
-
-            <h2>最新のトピックス</h2>
-            <p class="count">3件の記事があります</p>
-
-            <div class="card-grid">
-                <article class="card">
-                    <div class="card-img-wrapper">
-                        <img src="https://via.placeholder.com/300x180/ddd/999?text=Image+1" alt="作品1">
-                    </div>
-                    <div class="card-content">
-                        <span class="date">公開 2026.05.16</span>
-                        <h3 class="card-title">新しく描いた油絵の紹介とこだわったポイント</h3>
-                        <p class="card-text">今回制作した風景画の色彩設計や、光の表現についてこだわった部分を解説します。</p>
-                        <span class="tag">アート・絵画</span>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-img-wrapper">
-                        <img src="https://via.placeholder.com/300x180/ddd/999?text=Image+2" alt="作品2">
-                    </div>
-                    <div class="card-content">
-                        <span class="date">公開 2026.05.10</span>
-                        <h3 class="card-title">SNSで作品を魅力的に見せるための写真撮影のコツ</h3>
-                        <p class="card-text">スマホのカメラを使って、自分の絵画をきれいに、かつ実物に近い色合いで撮影するテクニック。</p>
-                        <span class="tag">アート・絵画</span>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-img-wrapper">
-                        <img src="https://via.placeholder.com/300x180/ddd/999?text=Image+3" alt="作品3">
-                    </div>
-                    <div class="card-content">
-                        <span class="date">公開 2026.04.25</span>
-                        <h3 class="card-title">初心者が個展を開くまでに準備したことまとめ</h3>
-                        <p class="card-text">初めての展示会を企画した際の、会場選びから搬入、集客のリアルなスケジュールを共有します。</p>
-                        <span class="tag">アート・絵画</span>
-                    </div>
-                </article>
-            </div>
-        </main>
-
+    <div class="label">住所</div>
+    <div class="value">
+      〒134-0084<br>
+      東京都江戸川区東葛西6-2-1 3F
     </div>
+  </div>
 
-    <script>
-        function calculateCost() {
-            const years = parseFloat(document.getElementById('years').value);
-            const cigarettes = parseFloat(document.getElementById('cigarettes').value);
-            const pricePerPack = parseFloat(document.getElementById('price').value);
-
-            if (isNaN(years) || isNaN(cigarettes)) {
-                alert('年数と本数を入力してください！');
-                return;
-            }
-
-            const totalDays = years * 365;
-            const totalPacks = (cigarettes / 20) * totalDays;
-            const totalCost = Math.round(totalPacks * pricePerPack);
-
-            let item = "";
-            if (totalCost < 10000) {
-                item = "ちょっと豪華な居酒屋で贅沢ができましたね。";
-            } else if (totalCost < 50000) {
-                item = "最新のワイヤレスイヤホンや、高級ブランドの服が買えました。";
-            } else if (totalCost < 200000) {
-                item = "最新のiPhoneや、国内の贅沢な温泉旅行に行けました。";
-            } else if (totalCost < 500000) {
-                item = "ハワイやヨーロッパへの海外旅行にいけました。";
-            } else if (totalCost < 2000000) {
-                item = "スペックの良い中古車、あるいは新車の軽自動車が余裕で買えました！";
-            } else {
-                item = "高級外車（ベンツやBMW）や、家を建てるための頭金になりました！";
-            }
-
-            document.getElementById('totalCost').innerText = totalCost.toLocaleString();
-            document.getElementById('alternativeItem').innerText = `👉 このお金があれば…\n${item}`;
-            document.getElementById('resultBox').style.display = 'block';
-        }
-    </script>
 </body>
 </html>

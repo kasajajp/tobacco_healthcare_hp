@@ -26,13 +26,7 @@
     h1 {
       text-align: center;
       font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    .muscle {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 18px;
     }
 
     input {
@@ -69,13 +63,13 @@
     }
 
     .result {
-      margin-top: 18px;
+      margin-top: 22px;
       font-size: 20px;
       font-weight: bold;
       text-align: center;
     }
 
-    .comment, .badge, .counter {
+    .comment, .counter {
       margin-top: 10px;
       text-align: center;
       color: #aaa;
@@ -95,29 +89,12 @@
       text-decoration: none;
       font-weight: bold;
     }
-
-    .xbox {
-      margin-top: 14px;
-      padding: 14px;
-      border: 1px solid #333;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .xbox a {
-      color: #fff;
-      text-decoration: none;
-    }
   </style>
 </head>
 
 <body>
 
 <div class="card">
-
-  <img class="muscle"
-       src="https://images.unsplash.com/photo-1571019613914-85f342c3a0b0"
-       alt="muscle">
 
   <h1>ジムコスト診断</h1>
 
@@ -130,18 +107,16 @@
 
   <div class="result" id="result"></div>
   <div class="comment" id="comment"></div>
-  <div class="badge" id="badge"></div>
 
   <button class="xpost" onclick="postToX()">Xでバズ投稿する 🚀</button>
 
   <!-- X投稿表示枠 -->
-  <div class="xbox" id="xbox"></div>
+  <div class="box" id="xbox"></div>
 
-  <!-- 下部リンク枠（追加要件） -->
+  <!-- 修正：URL埋め込み -->
   <div class="box">
-    あなたのジムの料金は？<br><br>
-    <a href="https://kasajajp/kasaja_gymmap" target="_blank">
-      https://kasajajp/kasaja_gymmap
+    <a href="https://kasajajp.github.io/kasaja_gymmap" target="_blank">
+      あなたのジム料金は？
     </a>
   </div>
 
@@ -155,7 +130,6 @@
 
 <script>
 let lastText = "";
-let lastCounter = 0;
 
 function calc() {
   const fee = Number(document.getElementById("fee").value);
@@ -168,41 +142,24 @@ function calc() {
   let label = "";
   let badge = "";
 
-  if (per >= 10000) {
-    label = "富豪パーソナル級";
-    badge = "完全にパーソナル超え";
-  } else if (per >= 8000) {
-    label = "パーソナル級";
-    badge = "かなり贅沢";
-  } else if (per >= 4000) {
-    label = "高級会員級";
-    badge = "意識高い系";
-  } else if (per >= 2000) {
-    label = "ダンベル級";
-    badge = "標準トレーニー";
-  } else if (per >= 1000) {
-    label = "公園トレ級";
-    badge = "コスパ良好";
-  } else if (per >= 500) {
-    label = "牛丼級";
-    badge = "かなりコスパ良い";
-  } else {
-    label = "異常コスパ級";
-    badge = "無限回収モード";
-  }
+  if (per >= 10000) label = "富豪パーソナル級";
+  else if (per >= 8000) label = "パーソナル級";
+  else if (per >= 4000) label = "高級会員級";
+  else if (per >= 2000) label = "ダンベル級";
+  else if (per >= 1000) label = "公園トレ級";
+  else if (per >= 500) label = "牛丼級";
+  else label = "異常コスパ級";
 
   lastText = `ジム1回 ${Math.round(per)}円 → ${label}`;
 
   document.getElementById("result").innerText = lastText;
   document.getElementById("comment").innerText = "X投稿で共有可能";
-  document.getElementById("badge").innerText = badge;
 
-  // 診断人数カウント（ローカル保存）
+  // カウンター（ローカル）
   let count = localStorage.getItem("gym_count");
   count = count ? Number(count) + 1 : 1;
   localStorage.setItem("gym_count", count);
 
-  lastCounter = count;
   document.getElementById("counter").innerText =
     `あなたは ${count} 人目の診断者です`;
 }
@@ -234,9 +191,8 @@ https://kasajajp.github.io/tobacco_healthcare_hp/`;
 
   window.open(url, "_blank");
 
-  // 下にXプレビュー表示
-  document.getElementById("xbox").innerHTML =
-    "投稿内容をXで確認できます（別タブで開きました）";
+  document.getElementById("xbox").innerText =
+    "X投稿画面を開きました";
 }
 </script>
 

@@ -82,6 +82,18 @@
       font-size: 14px;
       color: #888;
     }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 12px;
+      text-align: center;
+      color: #666;
+    }
+
+    .footer a {
+      color: #666;
+      text-decoration: none;
+    }
   </style>
 </head>
 
@@ -100,11 +112,16 @@
   <div class="badge" id="badge"></div>
 
   <button class="xpost" onclick="postToX()">Xでバズ投稿する 🚀</button>
+
+  <div class="footer">
+    <a href="https://kasajajp.github.io/" target="_blank">
+      KASAJA
+    </a>
+  </div>
 </div>
 
 <script>
 let lastText = "";
-let lastLevel = "";
 
 function calc() {
   const fee = Number(document.getElementById("fee").value);
@@ -117,7 +134,6 @@ function calc() {
   let label = "";
   let badge = "";
 
-  // バリエーション拡張
   if (per >= 10000) {
     label = "富豪パーソナル級";
     badge = "完全にパーソナルジム超え";
@@ -146,8 +162,6 @@ function calc() {
   document.getElementById("result").innerText = lastText;
   document.getElementById("comment").innerText = "X投稿で共有できます";
   document.getElementById("badge").innerText = badge;
-
-  lastLevel = label;
 }
 
 function postToX() {
@@ -164,7 +178,13 @@ function postToX() {
   ].join(" ");
 
   const text =
-    `${lastText}\n\n${hashtags}\n自分のコスパを診断👇`;
+`【ジムコスト診断｜KASAJA】
+${lastText}
+
+${hashtags}
+
+診断はこちら👇
+https://kasajajp.github.io/tobacco_healthcare_hp/`;
 
   const url =
     `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;

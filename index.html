@@ -3,31 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ジムコスト診断</title>
+  <title>ジムコスト診断 + X投稿</title>
 
   <style>
     body {
       font-family: sans-serif;
       background: #111;
       color: #fff;
-      margin: 0;
-      padding: 40px 20px;
       display: flex;
       justify-content: center;
+      padding: 40px 20px;
     }
 
     .card {
       background: #1e1e1e;
       padding: 24px;
       border-radius: 16px;
-      max-width: 420px;
       width: 100%;
+      max-width: 420px;
     }
 
     h1 {
-      margin-top: 0;
-      font-size: 22px;
       text-align: center;
+      font-size: 20px;
     }
 
     input {
@@ -41,24 +39,33 @@
 
     button {
       width: 100%;
-      margin-top: 16px;
+      margin-top: 12px;
       padding: 12px;
       border: none;
       border-radius: 8px;
-      background: white;
-      color: black;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .result {
-      margin-top: 20px;
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
+    .calc-btn {
+      background: white;
+      color: black;
     }
 
-    .sub {
+    .x-btn {
+      background: #000;
+      color: white;
+      border: 1px solid #444;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .comment {
       margin-top: 10px;
       text-align: center;
       color: #aaa;
@@ -68,48 +75,62 @@
 
 <body>
 
-  <div class="card">
-    <h1>ジムコスト診断</h1>
+<div class="card">
+  <h1>ジムコスト診断</h1>
 
-    <input id="fee" type="number" placeholder="月額料金（例: 8000）">
-    <input id="visits" type="number" placeholder="月のジム回数（例: 4）">
+  <input id="fee" type="number" placeholder="月額料金（例：8000）">
+  <input id="visits" type="number" placeholder="月の回数（例：4）">
 
-    <button onclick="calc()">診断する</button>
+  <button class="calc-btn" onclick="calc()">計算する</button>
 
-    <div class="result" id="result"></div>
-    <div class="sub" id="comment"></div>
-  </div>
+  <div class="result" id="result"></div>
+  <div class="comment" id="comment"></div>
 
-  <script>
-    function calc() {
-      const fee = Number(document.getElementById("fee").value);
-      const visits = Number(document.getElementById("visits").value);
+  <button class="x-btn" onclick="postToX()">Xで投稿する</button>
+</div>
 
-      if (!fee || !visits) {
-        alert("数値を入力してください");
-        return;
-      }
+<script>
+let lastText = "";
 
-      const per = fee / visits;
+function calc() {
+  const fee = Number(document.getElementById("fee").value);
+  const visits = Number(document.getElementById("visits").value);
 
-      document.getElementById("result").innerText =
-        `1回あたり ${Math.round(per).toLocaleString()} 円`;
+  if (!fee || !visits) return;
 
-      let comment = "";
+  const per = fee / visits;
 
-      if (per >= 8000) {
-        comment = "パーソナル級（かなり贅沢なジム利用）";
-      } else if (per >= 2000) {
-        comment = "ダンベル級（ちゃんと通えている）";
-      } else if (per >= 500) {
-        comment = "牛丼級（コスパ優秀トレーニー）";
-      } else {
-        comment = "異常コスパ（ほぼ無限回収モード）";
-      }
+  let label = "";
 
-      document.getElementById("comment").innerText = comment;
-    }
-  </script>
+  if (per >= 8000) {
+    label = "パーソナル級";
+  } else if (per >= 2000) {
+    label = "ダンベル級";
+  } else if (per >= 500) {
+    label = "牛丼級";
+  } else {
+    label = "異常コスパ";
+  }
+
+  lastText = `ジム1回あたり${Math.round(per)}円 → ${label}`;
+
+  document.getElementById("result").innerText = lastText;
+  document.getElementById("comment").innerText = "この結果をXに投稿できます";
+}
+
+function postToX() {
+  if (!lastText) {
+    alert("先に計算してください");
+    return;
+  }
+
+  const text = encodeURIComponent(lastText + " #ジムコスト診断");
+
+  const url = `https://twitter.com/intent/tweet?text=${text}`;
+
+  window.open(url, "_blank");
+}
+</script>
 
 </body>
 </html>
